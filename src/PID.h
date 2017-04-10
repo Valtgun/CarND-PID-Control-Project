@@ -12,10 +12,16 @@ public:
 
   /*
   * Coefficients
-  */ 
+  */
   double Kp;
   double Ki;
   double Kd;
+
+  double prev_cte;
+  double int_cte;
+  double steering;
+
+  unsigned long timestamp;
 
   /*
   * Constructor
@@ -41,6 +47,11 @@ public:
   * Calculate the total PID error.
   */
   double TotalError();
+
+  /*
+  * Calculate the steering angle.
+  */
+  double Steering();
 };
 
 #endif /* PID_H */
