@@ -1,6 +1,8 @@
 #ifndef PID_H
 #define PID_H
 
+#include <vector>
+
 class PID {
 public:
   /*
@@ -23,6 +25,19 @@ public:
 
   unsigned long timestamp;
 
+  bool twiddle;
+  double tw_error;
+  double tw_max_error;
+  float tw_inc_coef;
+  float tw_dec_coef;
+  float tw_tol;
+  unsigned int tw_frames;
+  unsigned int tw_max_frames;
+  unsigned int tw_runs;
+  float params[3];
+  float d_params[3];
+  unsigned int tw_param_adj;
+  unsigned int tw_next_state;
   /*
   * Constructor
   */
