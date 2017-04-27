@@ -32,7 +32,7 @@ void PID::UpdateError(double cte) {
   prev_cte = cte;
   int_cte += cte;
   //steering = -Kp * cte - Kd * diff_cte - Ki * int_cte;
-  steering = -(-Kp * cte - Kd * diff_cte - Ki * int_cte);
+  steering = (-Kp * cte - Kd * diff_cte - Ki * int_cte);
 }
 
 double PID::TotalError() {
