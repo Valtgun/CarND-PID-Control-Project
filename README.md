@@ -3,6 +3,37 @@ Self-Driving Car Engineer Nanodegree Program
 
 ---
 
+## Reflection
+### Effect of each of the P, I, D components
+P - proportional term was the main parameter that contributes to the control. It has direct response to the current error value.
+I - integral term is accumulating error over time, it is used when P term is not correcting sufficiently to reduce the error. In case of understeering I part becomes more significant and corrects the steering control.
+D - derivative term is used to reduce overshooting and therefore makes smoother behavior. If the value is too large then car will behave too smoothly also in the corners and will not be able to steer successfully in the corners.
+
+PID controller once parameters were tuned performed very well. It can even compare with the ConvNet approach in terms of driving behavior. However, PID controller requires ground truth, which is not easily available in realistic situations, which make it worse in terms of real world applications.
+
+### How the final hyperparameters were chosen
+Final hyperparameters for submission was tuned manually. However, during the process also there were experiments with Twiddle approach which is described in next chapter.
+
+For the manual tuning, it was done in multiple step process (as described in https://en.wikipedia.org/wiki/PID_controller#Manual_tuning):
+As the proportional term is most important in the PID controller then initially only P parameter was changed (with I and D set to 0 coefficient).
+Once P controller was starting to oscillate it the next I parameter was tuned.
+During this process, if P parameter was set too low, then car was not able to steer back to the centerline and if it was too large value then oscillations increased and it run out of track at some point.
+
+As the next, the Integral term was adjusted. It was used to get the result when car remains on the track, with the oscillations present. Once car was able to remain on track the D term was adjusted.
+
+Derivative term was adjusted as last and is necessary to reduce oscillations and make steering controls smoother.
+
+Final parameters were:
+P = 0.075
+I = 0.005
+D = 0.075
+
+### Experiment with hyperparameter tuning using twiddle
+During the process Twiddle was used (it is located in test-twiddle branch https://github.com/Valtgun/CarND-PID-Control-Project/tree/test-twiddle).
+There were multiple complexities when tuning using twiddle.
+Main issue was that with existing simulator there were no solution to Reset car back to initial state. And if the car was not reset then it was difficult to compare results over different runs as the track contained varying number of corners and straight runs.
+It was interesting to test and see the challenges, but it did not allow better tuning of parameters.
+
 ## Dependencies
 
 * cmake >= 3.5
@@ -25,7 +56,7 @@ Self-Driving Car Engineer Nanodegree Program
 1. Clone this repo.
 2. Make a build directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
-4. Run it: `./pid`. 
+4. Run it: `./pid`.
 
 ## Editor Settings
 
